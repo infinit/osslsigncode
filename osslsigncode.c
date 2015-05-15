@@ -803,7 +803,7 @@ static void usage(const char *argv0)
 	fprintf(stderr,
 			"Usage: %s\n\n\t[ --version | -v ]\n\n"
 			"\t[ sign ]\n"
-			"\t\t( -certs <certfile> -key <keyfile> | -pkcs12 <pkcs12file> |\n"
+			"\t\t( -certs|spc <certfile> -key <keyfile> | -pkcs12 <pkcs12file> |\n"
 			"\t\t  -pkcs11engine <engine> -pkcs11module <module> -certs <certfile> -key <pkcs11 key id>)\n"
 			"\t\t[ -pass <password> ] "
 #ifdef PROVIDE_ASKPASS
