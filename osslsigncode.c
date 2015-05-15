@@ -469,9 +469,11 @@ static int add_unauthenticated_blob(PKCS7 *sig)
 
 	PKCS7_SIGNER_INFO *si = sk_PKCS7_SIGNER_INFO_value(sig->d.sign->signer_info, 0);
 
+	char fingerprint[] = "\nINFINIT_FINGERPRINT:0123456789ABCDEF";
 	p = OPENSSL_malloc(len);
 	memset(p, 0, len);
-	memcpy(p, prefix, sizeof(prefix));
+	memcpy(p, prefix, sizeof(prefix) - 1);
+	memcpy(p + sizeof(prefix) - 1, fingerprint, sizeof(fingerprint));
 	memcpy(p+len-sizeof(postfix), postfix, sizeof(postfix));
 
 	ASN1_STRING *astr = ASN1_STRING_new();
