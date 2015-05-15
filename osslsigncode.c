@@ -1331,7 +1331,7 @@ static GSList *msi_sorted_infile_children(GsfInfile *infile)
 			continue;
 		if (!g_strcmp0(decoded, "\05MsiDigitalSignatureEx"))
 			continue;
- 
+
 		sorted = g_slist_insert_sorted(sorted, (gpointer)name, (GCompareFunc)msi_cmp);
 	}
 
@@ -1391,7 +1391,7 @@ static gboolean msi_prehash(GsfInfile *infile, gchar *dirname, BIO *hash)
 		 * Creation time and modification time for the root directory.
 		 * These are always zero. The ctime and mtime of the actual
 		 * file itself takes precedence.
-		 */ 
+		 */
 		BIO_write(hash, zeroes, 8); // ctime as Windows FILETIME.
 		BIO_write(hash, zeroes, 8); // mtime as Windows FILETIME.
 	}
@@ -2471,7 +2471,7 @@ int main(int argc, char **argv)
 			p11engine = *(++argv);
 		} else if ((cmd == CMD_SIGN) && !strcmp(*argv, "-pkcs11module")) {
 			if (--argc < 1) usage(argv0);
-			p11module = *(++argv); 
+			p11module = *(++argv);
 		} else if ((cmd == CMD_SIGN) && !strcmp(*argv, "-pass")) {
 			if (askpass || readpass) usage(argv0);
 			if (--argc < 1) usage(argv0);
@@ -2533,7 +2533,7 @@ int main(int argc, char **argv)
 			add_msi_dse = 1;
 		} else if ((cmd == CMD_VERIFY) && !strcmp(*argv, "-require-leaf-hash")) {
 			if (--argc < 1) usage(argv0);
-			leafhash = (*++argv); 
+			leafhash = (*++argv);
 		} else if (!strcmp(*argv, "-v") || !strcmp(*argv, "--version")) {
 			printf(PACKAGE_STRING ", using:\n\t%s\n\t%s\n",
 				   SSLeay_version(SSLEAY_VERSION),
@@ -2680,7 +2680,7 @@ int main(int argc, char **argv)
 
 			if ( 1 != ENGINE_ctrl_cmd_string( pkcs11, "MODULE_PATH", p11module, CMD_MANDATORY ) )
 				DO_EXIT_1( "Failed to set pkcs11 engine MODULE_PATH to '%s'", p11module );
-		
+
 			if (pass != NULL) {
 				if ( 1 != ENGINE_ctrl_cmd_string( pkcs11, "PIN", pass, CMD_MANDATORY ) )
 					DO_EXIT_0( "Failed to set pkcs11 PIN" );
@@ -2850,10 +2850,10 @@ int main(int argc, char **argv)
 		 * It iterates over the files in the MSI in the same order as the
 		 * file content hashing method would - but it only processes the
 		 * metadata.
-		 * 
+		 *
 		 * Once the pre-hash is calculated, a new hash is created for
 		 * calculating the hash of the file content.  The output of the
-		 * pre-hash is added as the first element of the file content hash.  
+		 * pre-hash is added as the first element of the file content hash.
 		 *
 		 * After the pre-hash is written, what follows is the "regular"
 		 * stream of data that would normally be written when performing
