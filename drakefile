@@ -1,0 +1,39 @@
+import drake
+
+binary = None
+
+def configure(cxx_toolkit = None):
+
+  global binary
+  output = drake.Path('osslsigncode')
+  sources = drake.copy(
+    drake.nodes(
+      "Makefile.am",
+      "configure.ac",
+      "tests/testsign.sh",
+      "README.unauthblob",
+      "LICENSE",
+      "autogen.sh",
+      "osslsigncode.c"),
+    output)
+
+  autogen = drake.node(output / 'autogen.sh')
+  configure = drake.node(output / 'configure')
+  makefile = drake.node(output / 'Makefile')
+  # Autogen.
+  drake.ShellCommand(sources,
+                     targets = [configure],
+                     command = ['./autogen.sh'],
+                     cwd = drake.path_build() / output,
+  )
+  # Configure.
+  drake.ShellCommand([configure],
+                     targets = [makefile],
+                     command = ['./configure'],
+                     cwd = drake.path_build() / output,
+  )
+  # Make.
+  binary = drake.node(output / 'osslsigncode')
+  drake.ShellCommand([makefile], [binary], ['make', 'all'],
+                     cwd = drake.path_build() / output,
+  )
